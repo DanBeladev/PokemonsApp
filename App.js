@@ -1,19 +1,37 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+//first import createStackNavigator from react-navigation
+import { NavigationContainer } from '@react-navigation/native';
+//then import StackNavigator for creatign nested routes
+import { createStackNavigator } from '@react-navigation/stack';
+//Import your screens
+import PokeList from './components/PokeList';
+import Pokemon from './components/Pokemon';
+import Home from './components/Home';
 
-export default function App() {
+const RootStack = createStackNavigator();
+
+//Define your routes using createStackNavigator, which will be a object full of options.
+
+function AppStack() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
+    <NavigationContainer>
+      <RootStack.Navigator initialRouteName='Home'>
+        <RootStack.Screen
+          name='Home'
+          component={Home}
+          options={{headerShown: false}}
+
+        />
+        <RootStack.Screen name='PokeList' component={PokeList} />
+        <RootStack.Screen name='Pokemon' component={Pokemon} />
+      </RootStack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+//Export default the stateless component
+const App = () => {
+  return <AppStack />;
+};
+
+export default App;
